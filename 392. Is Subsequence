@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        //when the the stack is empty we stop
+        for(int i=t.size()-1; i>=0 && !s.empty();i--)
+        {
+            if(t[i]==s[s.size()-1])s.pop_back();//pop out after traversing if the elements are same
+        }
+        return s.empty();
+    }
+};
