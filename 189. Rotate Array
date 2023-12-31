@@ -1,0 +1,12 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k=k%nums.size();
+        //reverse the array from index 0 to n-k
+        reverse(nums.begin(),nums.begin()+(nums.size()-k));
+        //reverse the k index from the last 
+        reverse(nums.begin()+(nums.size()-k),nums.end());
+        //reverse the whole array
+        reverse(nums.begin(),nums.end());
+    }
+};
