@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int pseudoPalindromicPaths (TreeNode* root) {
+        int path=0,cnt=0;
+        stack<pair<TreeNode *, int>>stk;
+        stk.push({root,0});
+        while(!stk.empty()){
+            auto [node,path]=stk.top();
+            stk.pop();
+            if(node != nullptr){
+                path = path ^ (1<<node->val);
+                if(node->left ==nullptr && node->right==nullptr){
+                    if((path&(path-1))==0)++cnt;
+                }
+                else{
+                        stk.push({node->right,path});
+                        stk.push({node->left,path});
+                    }
+            }
+        }
+        return cnt;
+    }
+};
+/*
+approach
+Use a depth-first search (DFS) with a stack to traverse the binary tree.
+Maintain a path variable to keep track of the occurrences of each digit using bitwise XOR.
+If a leaf node is reached, check if the current path is pseudo-palindromic.
+Pseudo-palindromic path condition: At most one digit should have an odd frequency.
+Use bitwise operations to efficiently handle digit occurrences.
+Increment the count if the pseudo-palindromic condition is satisfied.
+
+*/
